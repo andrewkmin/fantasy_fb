@@ -3,7 +3,7 @@ App = {
   contracts: {},
 
   init: function () {
-    // Load pets.
+    // Load players.
     $.getJSON('../players.json', function (data) {
       var petsRow = $('#petsRow');
       var petTemplate = $('#petTemplate');
@@ -11,9 +11,10 @@ App = {
       for (i = 0; i < data.length; i++) {
         petTemplate.find('.panel-title').text(data[i].name);
         petTemplate.find('img').attr('src', data[i].picture);
-        petTemplate.find('.pet-breed').text(data[i].breed);
-        petTemplate.find('.pet-age').text(data[i].age);
-        petTemplate.find('.pet-location').text(data[i].location);
+        petTemplate.find('.player-team').text(data[i].team);
+        petTemplate.find('.player-position').text(data[i].position.toUpperCase());
+        petTemplate.find('.player-rank').text(data[i]["proj_pos_rank"]);
+        petTemplate.find('.player-cost').text(5 - parseInt(data[i]["proj_pos_rank"]));
         
         var text = "Needs one! Draft me!";
 
@@ -73,11 +74,11 @@ App = {
     }).then(function (adopters) {
       for (i = 0; i < adopters.length; i++) {
         if (adopters[i] !== '0x0000000000000000000000000000000000000000') {
-          $('.panel-pet').eq(i).find('button').text('Success').attr('disabled', true);
+          $('.panel-pet').eq(i).find('button').text('Taken').attr('disabled', true);
           var adopter = adopters[i];
           var mod = App.splitString(adopter, adopter.length/2);
           var newString = mod[0] + "\n" + mod[1];
-          $('.pet-owner').eq(i).text(newString);
+          $('.pet-owner').eq(i).text("Owned!");
         }
       }
     }).catch(function (err) {
