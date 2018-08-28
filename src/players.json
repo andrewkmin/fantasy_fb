@@ -1,0 +1,194 @@
+[
+    {
+        "id": 0,
+        "position": "qb",
+        "name": "Aaron Rodgers",
+        "picture": "images/players/aaronrodgers.png",
+        "team": "Green Bay Packers",
+        "proj_pos_rank": 1
+    },
+    {
+        "id": 1,
+        "position": "qb",
+        "name": "Tom Brady",
+        "picture": "images/players/tombrady.png",
+        "team": "New England Patriots",
+        "proj_pos_rank": 2
+    },
+    {
+        "id": 2,
+        "position": "qb",
+        "name": "Cam Newton",
+        "picture": "images/players/camnewton.png",
+        "team": "Carolina Panthers",
+        "proj_pos_rank": 3
+    },
+    {
+        "id": 3,
+        "position": "qb",
+        "name": "Carson Wentz",
+        "picture": "images/players/carsonwentz.png",
+        "team": "Philadelphia Eagles",
+        "proj_pos_rank": 4
+    },
+    {
+        "id": 5,
+        "position": "rb",
+        "name": "Leveon Bell",
+        "picture": "images/players/leveonbell.png",
+        "team": "Pittsburgh Steelers",
+        "proj_pos_rank": 1
+    },
+    {
+        "id": 6,
+        "position": "rb",
+        "name": "Todd Gurley II",
+        "picture": "images/players/toddgurley.png",
+        "team": "Los Angeles Rams",
+        "proj_pos_rank": 2
+    },
+    {
+        "id": 7,
+        "position": "rb",
+        "name": "David Johnson",
+        "picture": "images/players/davidjohnson.png",
+        "team": "Arizona Cardinals",
+        "proj_pos_rank": 3
+    },
+    {
+        "id": 8,
+        "position": "rb",
+        "name": "Ezekiel Elliott",
+        "picture": "images/players/ezekielelliott.png",
+        "team": "Dallas Cowboys",
+        "proj_pos_rank": 4
+    },
+    {
+        "id": 10,
+        "position": "wr",
+        "name": "Antonio Brown",
+        "picture": "images/players/antoniobrown.png",
+        "team": "Pittsburgh Steelers",
+        "proj_pos_rank": 1
+    },
+    {
+        "id": 11,
+        "position": "wr",
+        "name": "Julio Jones",
+        "picture": "images/players/juliojones.png",
+        "team": "Atlanta Falcons",
+        "proj_pos_rank": 2
+    },
+    {
+        "id": 12,
+        "position": "wr",
+        "name": "Deandre Hopkins",
+        "picture": "images/players/deandrehopkins.png",
+        "team": "Houston Texans",
+        "proj_pos_rank": 3
+    },
+    {
+        "id": 13,
+        "position": "wr",
+        "name": "Odell Beckham Jr",
+        "picture": "images/players/obj.png",
+        "team": "New York Giants",
+        "proj_pos_rank": 4
+    },
+    {
+        "id": 15,
+        "position": "te",
+        "name": "Rob Gronkowski",
+        "picture": "images/players/gronk.png",
+        "team": "Pittsburgh Steelers",
+        "proj_pos_rank": 1
+    },
+    {
+        "id": 16,
+        "position": "te",
+        "name": "Travis Kelce",
+        "picture": "images/players/traviskelce.png",
+        "team": "Kansas City Chiefs",
+        "proj_pos_rank": 2
+    },
+    {
+        "id": 17,
+        "position": "te",
+        "name": "Zach Ertz",
+        "picture": "images/players/zachertz.png",
+        "team": "Philadelphia Eagles",
+        "proj_pos_rank": 3
+    },
+    {
+        "id": 18,
+        "position": "te",
+        "name": "Greg Olsen",
+        "picture": "images/players/gregolsen.png",
+        "team": "Caroline Panthers",
+        "proj_pos_rank": 4
+    },
+    {
+        "id": 20,
+        "position": "dst",
+        "name": "Jacksonville Jaguars",
+        "picture": "images/players/jaguars.png",
+        "team": "Jacksonville Jaguars",
+        "proj_pos_rank": 1
+    },
+    {
+        "id": 21,
+        "position": "dst",
+        "name": "Philadelphia Eagles",
+        "picture": "images/players/eagles.png",
+        "team": "Philadelphia Eagles",
+        "proj_pos_rank": 2
+    },
+    {
+        "id": 22,
+        "position": "dst",
+        "name": "Los Angeles Rams",
+        "picture": "images/players/rams.png",
+        "team": "Los Angeles Rams",
+        "proj_pos_rank": 3
+    },
+    {
+        "id": 23,
+        "position": "dst",
+        "name": "Minnesota Vikings",
+        "picture": "images/players/vikings.png",
+        "team": "Minnesota Vikings",
+        "proj_pos_rank": 4
+    },
+    {
+        "id": 25,
+        "position": "k",
+        "name": "Greg Zuerlein",
+        "picture": "images/players/gregzuerlein.png",
+        "team": "Los Angeles Rams",
+        "proj_pos_rank": 1
+    },
+    {
+        "id": 26,
+        "position": "k",
+        "name": "Stephen Gostkowski",
+        "picture": "images/players/gostkowski.png",
+        "team": "New England Patriots",
+        "proj_pos_rank": 2
+    },
+    {
+        "id": 27,
+        "position": "k",
+        "name": "Justin Tucker",
+        "picture": "images/players/justintucker.png",
+        "team": "Baltimore Ravens",
+        "proj_pos_rank": 3
+    },
+    {
+        "id": 28,
+        "position": "k",
+        "name": "Matt Bryant",
+        "picture": "images/players/mattbryant.png",
+        "team": "Atlanta Falcons",
+        "proj_pos_rank": 4
+    }
+]
