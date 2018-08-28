@@ -198,4 +198,13 @@ contract Draft is owned, mortal{
         totalPot = newAmount;
         msg.sender.transfer(individualDeposit);
     }
+
+    /** @dev Helper method for tests
+      */
+    function makeActive()
+        public
+        verifyCommissioner(msg.sender)
+    {
+        active = true;
+    }
 }
