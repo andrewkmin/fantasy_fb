@@ -4,9 +4,25 @@
 // release
 // consider multisig later
 
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.22;
 
-contract Draft {
+// use OpenZeppelin's SafeMath library to prevent over/underflow on Integer operations
+import "./SafeMath.sol";
+
+contract owned {
+    constructor() public { owner = msg.sender; }
+    address owner;
+}
+
+// Emergency stop/kill method
+contract mortal is owned {
+    function kill() public {
+        if (msg.sender == owner) selfdestruct(owner);
+    }
+}
+
+contract Draft is owned, mortal{
+
     // array matching owners to players
     address[24] public owners;
     
@@ -39,11 +55,20 @@ contract Draft {
         claimable = false;
     }
     
-    // add events
-    // add modifiers
-    
+    // events
+    event eventBoughtIn(address _account);
+    event eventDeclareWinner(address _account);
+    event eventDraft(uint playerId);
+
+
+    // modifiers
     modifier verifyCommissioner(address _account) {
         require(_account == owner, "Not authorized");
+        _;
+    }
+
+    modifier verifyInactive() {
+        require(active == false, "League active");
         _;
     }
     
@@ -57,25 +82,54 @@ contract Draft {
         _;
     }
     
+    modifier boughtIn(address _account) {
+        require(participants[_account] == true, "Have not bought in");
+        _;
+    }
+
+    function getStatus() public view returns (bool) {
+        return active;
+    }
+    
     // Retrieving the owners
     function getOwners() public view returns(address[24]) {
         return owners;
     }
+
+    // get winner
+    function getWinner() public view returns(address) {
+        return winner;
+    }
     
-    function getBalances(address _account) public view returns(uint) {
-        return balances[_account];
+    function getBalance(address _account) 
+        public 
+        view 
+        boughtIn(_account)
+        returns(uint) 
+    {
+        uint bal = balances[_account];
+        return bal;
     }
     
     // Draft a player
-    function draft(uint playerId, uint cost) public returns(uint) {
+    function draftPlayer(uint playerId, uint cost) 
+        public 
+        returns(uint) 
+    {
         require(playerId >= 0 && playerId <= 23, "Invalid player selected.");
+
+        emit eventDraft(playerId);
 
         owners[playerId] = msg.sender;
 
         // make this safe
-        balances[msg.sender] -= cost;
+        // balances[msg.sender] -= cost;
 
-        return playerId;
+        uint newBalance = SafeMath.sub(balances[msg.sender], cost);
+
+        balances[msg.sender] = newBalance;
+
+        return newBalance;
     }
     
     // deposit funds 
@@ -87,6 +141,7 @@ contract Draft {
     {
         // return change; refer to old contracts/modifiers
         require(msg.value >= individualDeposit, "Insufficient funds"); 
+        emit eventBoughtIn(msg.sender);
         totalPot += individualDeposit;
         participants[msg.sender] = true;
         balances[msg.sender] = 10;
@@ -98,6 +153,7 @@ contract Draft {
         verifyCommissioner(msg.sender)
         verifyActive()
     {
+        emit eventDeclareWinner(_account);
         active = false;
         winner = _account;
         winner.transfer(totalPot);

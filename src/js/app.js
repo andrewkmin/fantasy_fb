@@ -111,10 +111,11 @@ App = {
         console.log('ACCOUNT', account);
         
         // DON'T LET THEM DO ANYTHING UNLESS THEY BUY IN FIRST
-        return draftInstance.getBalances(account);
+        return draftInstance.getBalance(account);
       }).then(function (balance) {
         console.log('BALANCE', balance);
 
+        // this is happening at the wrong time
         $('.btn-buy-in').text('Balance: '+balance).attr('disabled', true);
 
       }).catch(function (err) {
