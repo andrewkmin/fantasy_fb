@@ -24,9 +24,9 @@ All too often, I've been in a fantasy league in which the commissioner (usually 
 ### Future steps
 In short, there is a lot of functionality that I was not yet able to implement. These include: the use of oracles (in some sort) to correctly determine the outcome of games (and in turn, the performance of fantasy players); trading players; releasing players; acquiring players. 
 
-On the more technical end, I would've loved to use React/Redux/Drizzle as part of the stack as the application (and its state) got more and more complex. Furthermore, I believe it would've been especially cool to implement fantasy players as ERC-721 tokens; after all, in an isolated fantasy league, no two players are the same and each has their own characteristics and stats. 
+On the more technical end, I would've loved to use React/Redux/Drizzle as part of the stack as the application (and its state) got more and more complex. Using React's `localStorage`, for example, could've saved me the headache of having to make frequent reloads and requests to `web3`. Furthermore, I believe it would've been especially cool to implement fantasy players as ERC-721 tokens (NFTs); after all, in an isolated fantasy league, no two players are the same and each has their own characteristics and stats. 
 
 Because it would be difficult to test using live data (since the 2018 season hasn't yet started), I look to implement a back-testing method so that you can test matchups based on matchups in weeks of previous NFL seasons.
 
 ### Notes
-Front-end written with jQuery, Boostrap and MaterializeCSS.
+Front-end written with jQuery, Boostrap and MaterializeCSS. Future developments will go on a separate branch (per ConsenSys' request). 

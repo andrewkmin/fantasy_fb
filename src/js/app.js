@@ -5,30 +5,30 @@ App = {
     init: function () {
       // Load players.
       $.getJSON('../players.json', function (data) {
-        var petsRow = $('#petsRow');
-        var petTemplate = $('#petTemplate');
+        var playersRow = $('#playersRow');
+        var playerTemplate = $('#playerTemplate');
   
         for (i = 0; i < data.length; i++) {
-          petTemplate.find('.panel-title').text(data[i].name);
-          petTemplate.find('img').attr('src', data[i].picture);
-          petTemplate.find('.player-team').text(data[i].team);
-          petTemplate.find('.player-position').text(data[i].position.toUpperCase());
-          petTemplate.find('.player-rank').text(data[i]["proj_pos_rank"]);
+          playerTemplate.find('.panel-title').text(data[i].name);
+          playerTemplate.find('img').attr('src', data[i].picture);
+          playerTemplate.find('.player-team').text(data[i].team);
+          playerTemplate.find('.player-position').text(data[i].position.toUpperCase());
+          playerTemplate.find('.player-rank').text(data[i]["proj_pos_rank"]);
 
           var cost = 5 - parseInt(data[i]["proj_pos_rank"]);
-          petTemplate.find('.player-cost').text(cost);
+          playerTemplate.find('.player-cost').text(cost);
           
           var text = "Needs one! Draft me!";
   
           var mod = App.splitString(text, text.length/2);
           var newString = mod[0] + "\n" + mod[1];
   
-          petTemplate.find('.pet-owner').text(newString);
-          petTemplate.find('.btn-adopt').attr('data-id', data[i].id);
+          playerTemplate.find('.pet-owner').text(newString);
+          playerTemplate.find('.btn-adopt').attr('data-id', data[i].id);
 
-          petTemplate.find('.btn-adopt').attr('data-cost', cost);
+          playerTemplate.find('.btn-adopt').attr('data-cost', cost);
   
-          petsRow.append(petTemplate.html());
+          playersRow.append(playerTemplate.html());
         }
       });
   
@@ -101,21 +101,16 @@ App = {
       });
     },
 
-    // NOTE: TO-DO -- function for getting balance
     getBalance: function (account) {
       var draftInstance;
   
       App.contracts.Draft.deployed().then(function (instance) {
         draftInstance = instance;
-
-        console.log('ACCOUNT', account);
         
-        // DON'T LET THEM DO ANYTHING UNLESS THEY BUY IN FIRST
         return draftInstance.getBalance(account);
       }).then(function (balance) {
         console.log('BALANCE', balance);
 
-        // this is happening at the wrong time
         $('.btn-buy-in').text('Balance: '+balance).attr('disabled', true);
 
       }).catch(function (err) {
@@ -127,7 +122,6 @@ App = {
       return [value.substring(0, index), value.substring(index)];
     },
 
-    // NOTE; TO-DO
     handleBuyIn: function (event) {
       event.preventDefault();
 
