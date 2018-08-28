@@ -1,21 +1,23 @@
-// owner/commisioner gets special permissions on the web interface
-// Draft
-// trade
-// release
-// consider multisig later
+/** 
+* FUTURE PLANS: 
+* owner/commisioner gets special permissions on the web interface
+* Draft, trade, release, add, multisig (later)
+*/
 
 pragma solidity ^0.4.22;
 
 // use OpenZeppelin's SafeMath library to prevent over/underflow on Integer operations
 import "./SafeMath.sol";
 
+/** @title owned contract. */
 contract owned {
     constructor() public { owner = msg.sender; }
     address owner;
 }
 
-// Emergency stop/kill method
+/** @title mortal contract. */
 contract mortal is owned {
+    /** @dev Emergency stop/kill method */
     function kill() public {
         if (msg.sender == owner) selfdestruct(owner);
     }
@@ -87,20 +89,31 @@ contract Draft is owned, mortal{
         _;
     }
 
+    /** @dev Returns the current league status.
+      * @return active The boolean representing whether the league is active or not.
+      */
     function getStatus() public view returns (bool) {
         return active;
     }
     
-    // Retrieving the owners of fantasy players
+    /** @dev Retrieves the owners of fantasy players
+      * @return owners The array of owners, with indices representing IDs of fantasy players.
+      */
     function getOwners() public view returns(address[24]) {
         return owners;
     }
 
-    // get winner
+    /** @dev Retrieves the winner of the league
+      * @return winner Self-explanatory.
+      */
     function getWinner() public view returns(address) {
         return winner;
     }
     
+    /** @dev Returns the balance of a given address
+      * @param _account an address
+      * @return bal A uint representing an address' balance.
+      */
     function getBalance(address _account) 
         public 
         view 
@@ -111,28 +124,29 @@ contract Draft is owned, mortal{
         return bal;
     }
     
-    // Draft a player
+    /** @dev Draft a specific player and deduct their cost. Emits draft event.
+      * @param playerId A uint representing the ID of the player (specified in players.json file located in src folder)
+      * @param cost A uint representing how much it "costs" to draft this player
+      * @return newBalance A uint representing the updated balance of the owner of this freshly drafted player.
+      */
     function draftPlayer(uint playerId, uint cost) 
         public 
+        boughtIn(msg.sender)
+        verifyActive()
         returns(uint) 
     {
         require(playerId >= 0 && playerId <= 23, "Invalid player selected.");
-
         emit eventDraft(playerId);
-
         owners[playerId] = msg.sender;
 
-        // make this safe
-        // balances[msg.sender] -= cost;
-
         uint newBalance = SafeMath.sub(balances[msg.sender], cost);
-
         balances[msg.sender] = newBalance;
-
         return newBalance;
     }
     
-    // deposit funds 
+    /** @dev Allows users to buy into the league. Handles potential for a user to buy in multiple times. Default balance allocation
+      * is 10. Emits boughtIn event.
+      */
     function buyIn() 
         public
         payable 
@@ -142,12 +156,15 @@ contract Draft is owned, mortal{
         // return change; refer to old contracts/modifiers
         require(msg.value >= individualDeposit, "Insufficient funds"); 
         emit eventBoughtIn(msg.sender);
-        totalPot += individualDeposit;
+        uint newBalance = SafeMath.add(totalPot, individualDeposit);
+        totalPot = newBalance;
         participants[msg.sender] = true;
         balances[msg.sender] = 10;
     }
-
-    // declare winner and pay him/her
+    
+    /** @dev Declare winner and pay him/her. Emit declareWinner event.
+      * @param _account The account of the winner.
+      */
     function declareWinner(address _account) 
         public
         verifyCommissioner(msg.sender)
@@ -160,7 +177,8 @@ contract Draft is owned, mortal{
         totalPot = 0;
     }
     
-    // return funds in case of emergency
+    /** @dev Return funds (aka buy-in) to users in case of emergency. TO-DO: loop through and return funds.
+      */
     function emergencyReturn() 
         public
         verifyCommissioner(msg.sender)
@@ -170,13 +188,14 @@ contract Draft is owned, mortal{
         claimable = true;
     }
     
+    /** @dev Allows users to withdraw funds. TO-DO: rethink this function; possibly require multisig to enable this.
+      */
     function withdrawFunds()
         public
     {
         require(claimable == true, "Cannot withdraw");
-        totalPot -= individualDeposit;
-        uint val = balances[msg.sender];
-        balances[msg.sender] = 0;
-        msg.sender.transfer(val);
+        uint newAmount = SafeMath.sub(totalPot, individualDeposit);
+        totalPot = newAmount;
+        msg.sender.transfer(individualDeposit);
     }
 }
