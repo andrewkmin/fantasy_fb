@@ -91,7 +91,7 @@ contract Draft is owned, mortal{
         return active;
     }
     
-    // Retrieving the owners
+    // Retrieving the owners of fantasy players
     function getOwners() public view returns(address[24]) {
         return owners;
     }
