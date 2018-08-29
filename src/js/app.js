@@ -174,7 +174,7 @@ App = {
           draftInstance = instance;
   
           // Execute adopt as a transaction by sending account
-          return draftInstance.draft(playerId, cost, {
+          return draftInstance.draftPlayer(playerId, cost, {
             from: account
           });
         }).then(function (result) {
